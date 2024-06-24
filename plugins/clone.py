@@ -16,8 +16,6 @@ FORWARDING = {}
 
 @Client.on_message(filters.regex('cancel'))
 async def cancel_forward(bot, message):
-    if not message.from_user or message.from_user.id:
-        return
     cancel = await message.reply("Trying to cancel forwarding...")
     if FORWARDING.get(message.from_user.id):
         CANCEL[message.from_user.id] = True
@@ -28,7 +26,7 @@ async def cancel_forward(bot, message):
 @Client.on_message((filters.forwarded | (filters.regex("(https://)?(t\.me/|telegram\.me/|telegram\.dog/)(c/)?(\d+|[a-zA-Z_0-9]+)/(\d+)$")) & filters.text) & filters.chat(-1002243785887) & filters.incoming)
 async def send_for_forward(bot, message):
     if Config.ADMINS and not ((str(message.from_user.id) in Config.ADMINS) or (message.from_user.username in Config.ADMINS)):
-        return await message.reply("You Are Not Allowed To Use This UserBot")
+        return await message.reply("You Are Not Allowed To Use This UserBot")    
     if message.text:
         regex = re.compile("(https://)?(t\.me/|telegram\.me/|telegram\.dog/)(c/)?(\d+|[a-zA-Z_0-9]+)/(\d+)$")
         match = regex.match(message.text)
@@ -66,8 +64,6 @@ async def send_for_forward(bot, message):
                     
 @Client.on_message(filters.private & filters.command(['set_skip']))
 async def set_skip_number(bot, message):
-    if not message.from_user.id:
-        return
     try:
         _, skip = message.text.split(" ")
     except:
@@ -81,8 +77,6 @@ async def set_skip_number(bot, message):
 
 @Client.on_message(filters.private & filters.command(['set_delay'])) 
 async def set_delay_number(bot, message):
-    if not message.from_user.id:
-        return
     try:
         _, delay = message.text.split(" ")
     except:
