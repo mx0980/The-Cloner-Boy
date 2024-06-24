@@ -117,17 +117,18 @@ async def forward_files(lst_msg_id, chat, msg, bot, user_id):
     FORWARDING[user_id] = True
     to_channel = -1001569283029
     try:
-        skip_id = await bot.get_messages(-1001631481154, 8)
+        skip_idd = await bot.get_messages(-1001631481154, 8)
     except Exception as e:
         logger.exception(e)
         return await msg.reply(f"Error - {e}")
-    #skip_id = 
-    skip_id = (str(skip_id.text)).strip()
+    skip_id = (str(skip_idd.text)).strip()
     try:
         current = int(skip_id)
     except:
         return await msg.reply("Skip Number Not a integer")
     current = int(skip_id)
+    if current > lst_msg_id or current == lst_msg_id:
+        return await msg.reply("First Set Skip Number")
     # lst_msg_id is same to total messages
 
     try:
@@ -192,11 +193,14 @@ async def forward_files(lst_msg_id, chat, msg, bot, user_id):
                 logger.exception(e)
                 return await msg.reply(f"Forward Canceled!\n\nError - {e}")               
             forwarded += 1
-            await asyncio.sleep(delay)            
+            await asyncio.sleep(DELAY.get(user_id) if DELAY.get(user_id) else 5)            
     except Exception as e:
         logger.exception(e)
         await msg.reply(f"Forward Canceled!\n\nError - {e}")
     else:
         await msg.edit(f'Forward Completed!\n\nTotal Messages: <code>{lst_msg_id}</code>\nCompleted Messages: <code>{current} / {lst_msg_id}</code>\nFetched Messages: <code>{fetched}</code>\nTotal Forwarded Files: <code>{forwarded}</code>\nDeleted Messages Skipped: <code>{deleted}</code>\nNon Media Files: <code>{unsupported}</code>')
+        #if (str(skip_idd.text)).strip() == str(current):
+            #return await msg.reply("First Set Skip Number")
+        #else:
         await bot.edit_message_text(-1001631481154, 8, f"{current}")
         FORWARDING[user_id] = False
