@@ -23,8 +23,10 @@ async def cancel_forward(bot, message):
     else:
         await cancel.edit("No Forward Countinue Currently!")
         
-@Client.on_message((filters.forwarded | (filters.regex("(https://)?(t\.me/|telegram\.me/|telegram\.dog/)(c/)?(\d+|[a-zA-Z_0-9]+)/(\d+)$")) & filters.text) & filters.private & filters.incoming)
+@Client.on_message((filters.forwarded | (filters.regex("(https://)?(t\.me/|telegram\.me/|telegram\.dog/)(c/)?(\d+|[a-zA-Z_0-9]+)/(\d+)$")) & filters.text) & filters.group & filters.incoming)
 async def send_for_forward(bot, message):
+    if Config.ADMINS and not ((str(message.from_user.id) in Config.ADMINS) or (message.from_user.username in Config.ADMINS)):
+        return await message.reply("You Are Not Allowed To Use This UserBot")
     if message.text:
         regex = re.compile("(https://)?(t\.me/|telegram\.me/|telegram\.dog/)(c/)?(\d+|[a-zA-Z_0-9]+)/(\d+)$")
         match = regex.match(message.text)
@@ -90,6 +92,7 @@ async def set_delay_number(bot, message):
 async def set_target_channel(bot, message):    
     if Config.ADMINS and not ((str(message.from_user.id) in Config.ADMINS) or (message.from_user.username in Config.ADMINS)):
         return await message.reply("You Are Not Allowed To Use This UserBot")
+    
     try:
         _, chat_id = message.text.split(" ")
     except:
@@ -108,7 +111,7 @@ async def set_target_channel(bot, message):
 
 
 async def forward_files(lst_msg_id, chat, msg, bot, user_id):
-    delay = DELAY.get(user_id) if DELAY.get(user_id) else 5
+    #delay = DELAY.get(user_id) if DELAY.get(user_id) else 5
     forwarded = 0
     deleted = 0
     unsupported = 0
@@ -137,8 +140,8 @@ async def forward_files(lst_msg_id, chat, msg, bot, user_id):
                 await msg.edit(f"Successfully Forward Canceled!")
                 break
             if forwarded == 500:
-                await msg.edit(f'Forward Completed!\n\nTotal Messages: <code>{lst_msg_id}</code>\nCompleted Messages: <code>{current} / {lst_msg_id}</code>\nFetched Messages: <code>{fetched}</code>\nTotal Forwarded Files: <code>{forwarded}</code>\nDeleted Messages Skipped: <code>{deleted}</code>\nNon Media Files: <code>{unsupported}</code>')
-                await bot.edit_message_text(-1001631481154, 8, f"{current}")
+                #await msg.edit(f'Forward Completed!\n\nTotal Messages: <code>{lst_msg_id}</code>\nCompleted Messages: <code>{current} / {lst_msg_id}</code>\nFetched Messages: <code>{fetched}</code>\nTotal Forwarded Files: <code>{forwarded}</code>\nDeleted Messages Skipped: <code>{deleted}</code>\nNon Media Files: <code>{unsupported}</code>')
+                #await bot.edit_message_text(-1001631481154, 8, f"{current}")
                 break
             current += 1
             fetched += 1
@@ -193,7 +196,7 @@ async def forward_files(lst_msg_id, chat, msg, bot, user_id):
                 logger.exception(e)
                 return await msg.reply(f"Forward Canceled!\n\nError - {e}")               
             forwarded += 1
-            await asyncio.sleep(DELAY.get(user_id) if DELAY.get(user_id) else 5)            
+            await asyncio.sleep(4)            
     except Exception as e:
         logger.exception(e)
         await msg.reply(f"Forward Canceled!\n\nError - {e}")
