@@ -133,6 +133,10 @@ async def forward_files(lst_msg_id, chat, msg, bot, user_id):
             if CANCEL.get(user_id):
                 await msg.edit(f"Successfully Forward Canceled!")
                 break
+            if forwarded == 500:
+                await msg.edit(f'Forward Completed!\n\nTotal Messages: <code>{lst_msg_id}</code>\nCompleted Messages: <code>{current} / {lst_msg_id}</code>\nFetched Messages: <code>{fetched}</code>\nTotal Forwarded Files: <code>{forwarded}</code>\nDeleted Messages Skipped: <code>{deleted}</code>\nNon Media Files: <code>{unsupported}</code>')
+                await bot.edit_message_text(-1001631481154, 8, f"{current}")
+                break
             current += 1
             fetched += 1
             if current % 20 == 0:
