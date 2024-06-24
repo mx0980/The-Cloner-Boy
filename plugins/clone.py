@@ -16,6 +16,8 @@ FORWARDING = {}
 
 @Client.on_message(filters.regex('cancel'))
 async def cancel_forward(bot, message):
+    if not message.from_user or message.from_user.id:
+        return
     cancel = await message.reply("Trying to cancel forwarding...")
     if FORWARDING.get(message.from_user.id):
         CANCEL[message.from_user.id] = True
@@ -64,6 +66,8 @@ async def send_for_forward(bot, message):
                     
 @Client.on_message(filters.private & filters.command(['set_skip']))
 async def set_skip_number(bot, message):
+    if not message.from_user.id:
+        return
     try:
         _, skip = message.text.split(" ")
     except:
@@ -77,6 +81,8 @@ async def set_skip_number(bot, message):
 
 @Client.on_message(filters.private & filters.command(['set_delay'])) 
 async def set_delay_number(bot, message):
+    if not message.from_user.id:
+        return
     try:
         _, delay = message.text.split(" ")
     except:
