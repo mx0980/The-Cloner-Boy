@@ -6,7 +6,7 @@ import sys
 import os
 
 
-@Client.on_message(filters.private & (filters.command("start") | filters.regex("start")) & filters.incoming)
+@Client.on_message((filters.command("start") | filters.regex("start")) & filters.incoming)
 async def start(_, m):
     if a.ADMINS and not ((str(m.from_user.id) in a.ADMINS) or (m.from_user.username in a.ADMINS)):
         return 
@@ -15,8 +15,8 @@ async def start(_, m):
 Forward your source channel message to this bot. If source channel is forward restricted last message link send to this bot.
 
 /set_skip - Set skip message.
-/set_channel - Set target channel.
-
+/set_channel - set channel
+/set_delay - set delay in second default 4 second 
 Note - This bot not have a database, Then your details not saving permanently. If bot restarted your forward is stopping and your details is deleting."""
     await m.reply(f"👋 Hello {m.from_user.mention},\n\n{text}")
 
