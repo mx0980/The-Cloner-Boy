@@ -112,7 +112,6 @@ async def set_target_channel(bot, message):
 
 
 async def forward_files(lst_msg_id, chat, msg, bot, user_id):
-    current = CURRENT.get(user_id) if CURRENT.get(user_id) else 0
     delay = DELAY.get(user_id) if DELAY.get(user_id) else 1
     forwarded = 0
     deleted = 0
@@ -130,7 +129,7 @@ async def forward_files(lst_msg_id, chat, msg, bot, user_id):
     # lst_msg_id is same to total messages
 
     try:
-        async for message in bot.iter_messages(chat, lst_msg_id, CURRENT.get(user_id) if CURRENT.get(user_id) else 0):
+        async for message in bot.iter_messages(chat, lst_msg_id, current):
             if CANCEL.get(user_id):
                 await msg.edit(f"Successfully Forward Canceled!")
                 break
