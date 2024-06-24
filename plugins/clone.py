@@ -117,10 +117,11 @@ async def forward_files(lst_msg_id, chat, msg, bot, user_id):
     FORWARDING[user_id] = True
     to_channel = -1001569283029
     skip_id = bot.get_messages(-1001631481154, 8)
+    skip_id = skip_id.strip()
     try:
         current = int(skip_id)
     except:
-        return await message.reply("Skip Number Not a integer")
+        return await msg.reply("Skip Number Not a integer")
     current = int(skip_id)
     # lst_msg_id is same to total messages
 
