@@ -121,8 +121,8 @@ async def forward_files(lst_msg_id, chat, msg, bot, user_id):
     except Exception as e:
         logger.exception(e)
         return await msg.reply(f"Error - {e}")
-    skip_id = str(skip_id.text)
-    skip_id = (skip_id.text).strip()
+    #skip_id = 
+    skip_id = (str(skip_id.text)).strip()
     try:
         current = int(skip_id)
     except:
