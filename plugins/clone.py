@@ -116,7 +116,13 @@ async def forward_files(lst_msg_id, chat, msg, bot, user_id):
     CANCEL[user_id] = False
     FORWARDING[user_id] = True
     to_channel = -1001569283029
-    skip_id = bot.get_messages(-1001631481154, 8)
+    try:
+        skip_id = await bot.get_messages(-1001631481154, 8)
+    except Exception as e:
+        logger.exception(e)
+        return await msg.reply(f"Error - {e}")
+    await msg.reply(f"{skip_id}")
+    skip_id = str(skip_id)
     skip_id = skip_id.strip()
     try:
         current = int(skip_id)
