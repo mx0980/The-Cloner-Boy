@@ -121,7 +121,7 @@ async def forward_files(lst_msg_id, chat, msg, bot, user_id):
     CANCEL[user_id] = False
     FORWARDING[user_id] = True
     to_channel = -1001569283029
-    skip_id = app.get_messages(-1001631481154, 8)
+    skip_id = bot.get_messages(-1001631481154, 8)
     try:
         current = int(skip_id)
     except:
@@ -193,4 +193,5 @@ async def forward_files(lst_msg_id, chat, msg, bot, user_id):
         await msg.reply(f"Forward Canceled!\n\nError - {e}")
     else:
         await msg.edit(f'Forward Completed!\n\nTotal Messages: <code>{lst_msg_id}</code>\nCompleted Messages: <code>{current} / {lst_msg_id}</code>\nFetched Messages: <code>{fetched}</code>\nTotal Forwarded Files: <code>{forwarded}</code>\nDeleted Messages Skipped: <code>{deleted}</code>\nNon Media Files: <code>{unsupported}</code>')
+        await bot.edit_message_text(-1001631481154, 8, f"{current}")
         FORWARDING[user_id] = False
