@@ -48,35 +48,21 @@ async def send_for_forward(bot, message):
     if source_chat.type not in [enums.ChatType.CHANNEL, enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
         return await message.reply("I can forward only channels and groups.")
 
-    target_chat_id = CHANNEL.get(message.from_user.id)
-    if not target_chat_id:
-        return await message.reply("You not added target channel.\nAdd using /set_channel command.")
-
     try:
         target_chat = await bot.get_chat(target_chat_id)
     except Exception as e:
         return await message.reply(f'Error - {e}')
     # last_msg_id is same to total messages
-    approval = await message.chat.ask(
-        text = f'''Do You Want Forward? If You Want Forward Send Me "<code>yes</code>" Else Send Me "<code>no</code>"'''
-    )
-    approval = approval.text.lower()  
-    if approval.strip() == "yes":
-        if FORWARDING.get(message.from_user.id):
-            return await message.reply('Wait until previous process complete.')
-        msg = await message.reply('Starting Forwarding...')
-        try:
-            chat = int(chat_id)
-        except:
-            chat = chat_id
-        lst_msg_id = last_msg_id
-        await forward_files(int(lst_msg_id), chat, msg, bot, message.from_user.id)
-    else:
-        if approval.strip() == "no":
-            return await message.reply("Okay")
-        else:
-            return await message.reply("Invalid reply, Try Again!")
-            
+    if FORWARDING.get(message.from_user.id):
+        return await message.reply('Wait until previous process complete.')
+    msg = await message.reply('Starting Forwarding...')
+    try:
+        chat = int(chat_id)
+    except:
+        chat = chat_id
+    lst_msg_id = last_msg_id
+    await forward_files(int(lst_msg_id), chat, msg, bot, message.from_user.id)
+    
                     
 @Client.on_message(filters.private & filters.command(['set_skip']))
 async def set_skip_number(bot, message):
