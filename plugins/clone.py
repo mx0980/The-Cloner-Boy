@@ -121,6 +121,7 @@ async def forward_files(lst_msg_id, chat, msg, bot, user_id):
     duplicate = 0
     CANCEL[user_id] = False
     FORWARDING[user_id] = True
+    to_channel_id == -1001569283029
     # lst_msg_id is same to total messages
 
     try:
@@ -185,7 +186,7 @@ async def forward_files(lst_msg_id, chat, msg, bot, user_id):
                 else:
                     try:
                         await bot.copy_message(
-                            chat_id=CHANNEL.get(user_id),
+                            chat_id=to_channel_id,
                             from_chat_id=chat,
                             caption=message.caption,
                             message_id=message.id,
@@ -194,7 +195,7 @@ async def forward_files(lst_msg_id, chat, msg, bot, user_id):
                     except FloodWait as e:
                         await asyncio.sleep(e.value)
                         await bot.copy_message(
-                            chat_id=CHANNEL.get(user_id),
+                            chat_id=to_channel_id,
                             from_chat_id=chat,
                             caption=message.caption,
                             message_id=message.id,
