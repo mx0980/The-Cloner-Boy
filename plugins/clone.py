@@ -122,6 +122,8 @@ async def forward_files(lst_msg_id, chat, msg, bot, user_id):
         logger.exception(e)
         return await msg.reply(f"Error - {e}")
     await msg.reply(f"{skip_id}")
+    await msg.reply(f"{skip_id.id}")
+    skip_id = skip_id.id
     skip_id = str(skip_id)
     skip_id = skip_id.strip()
     try:
