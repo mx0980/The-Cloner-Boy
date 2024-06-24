@@ -108,7 +108,7 @@ async def set_target_channel(bot, message):
 
 
 async def forward_files(lst_msg_id, chat, msg, bot, user_id):
-    delay = DELAY.get(user_id) if DELAY.get(user_id) else 1
+    delay = DELAY.get(user_id) if DELAY.get(user_id) else 5
     forwarded = 0
     deleted = 0
     unsupported = 0
@@ -121,11 +121,8 @@ async def forward_files(lst_msg_id, chat, msg, bot, user_id):
     except Exception as e:
         logger.exception(e)
         return await msg.reply(f"Error - {e}")
-    await msg.reply(f"{skip_id}")
-    await msg.reply(f"{skip_id.id}")
-    skip_id = skip_id.id
-    skip_id = str(skip_id)
-    skip_id = skip_id.strip()
+    skip_id = str(skip_id.text)
+    skip_id = (skip_id.text).strip()
     try:
         current = int(skip_id)
     except:
