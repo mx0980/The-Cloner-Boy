@@ -48,10 +48,6 @@ async def send_for_forward(bot, message):
     if source_chat.type not in [enums.ChatType.CHANNEL, enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
         return await message.reply("I can forward only channels and groups.")
 
-    try:
-        target_chat = await bot.get_chat(target_chat_id)
-    except Exception as e:
-        return await message.reply(f'Error - {e}')
     # last_msg_id is same to total messages
     if FORWARDING.get(message.from_user.id):
         return await message.reply('Wait until previous process complete.')
