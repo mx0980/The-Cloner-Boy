@@ -111,7 +111,7 @@ async def set_target_channel(bot, message):
 
 
 async def forward_files(lst_msg_id, chat, msg, bot, user_id):
-    #delay = DELAY.get(user_id) if DELAY.get(user_id) else 5
+    delay = DELAY.get(user_id) if DELAY.get(user_id) else 4
     forwarded = 0
     deleted = 0
     unsupported = 0
@@ -196,7 +196,7 @@ async def forward_files(lst_msg_id, chat, msg, bot, user_id):
                 logger.exception(e)
                 return await msg.reply(f"Forward Canceled!\n\nError - {e}")               
             forwarded += 1
-            await asyncio.sleep(4)            
+            await asyncio.sleep(delay)            
     except Exception as e:
         logger.exception(e)
         await msg.reply(f"Forward Canceled!\n\nError - {e}")
