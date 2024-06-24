@@ -113,22 +113,22 @@ async def forward_files(lst_msg_id, chat, msg, bot, user_id):
     deleted = 0
     unsupported = 0
     fetched = 0
-    CANCEL[user_id] = False
-    FORWARDING[user_id] = True
     to_channel = -1001569283029
     try:
         skip_idd = await bot.get_messages(-1001631481154, 8)
     except Exception as e:
         logger.exception(e)
-        return await msg.reply(f"Error - {e}")
+        return await msg.edit(f"Error - {e}")
     skip_id = (str(skip_idd.text)).strip()
     try:
         current = int(skip_id)
     except:
-        return await msg.reply("Skip Number Not a integer")
+        return await msg.edit("Skip Number Not a integer")
     current = int(skip_id)
     if current > lst_msg_id or current == lst_msg_id:
-        return await msg.reply("First Set Skip Number")
+        return await msg.edit("First Set Skip Number")
+    CANCEL[user_id] = False
+    FORWARDING[user_id] = True
     # lst_msg_id is same to total messages
 
     try:
