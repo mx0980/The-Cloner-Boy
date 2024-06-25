@@ -14,7 +14,7 @@ CANCEL = {}
 DELAY = {}
 FORWARDING = {}
 
-@Client.on_message(filters.regex('cancel'))
+@Client.on_message(filters.regex('cancel') & filters.chat(-1002243785887))
 async def cancel_forward(bot, message):
     cancel = await message.reply("Trying to cancel forwarding...")
     if FORWARDING.get(message.from_user.id):
@@ -62,7 +62,7 @@ async def send_for_forward(bot, message):
     await forward_files(int(lst_msg_id), chat, msg, bot, message.from_user.id)
     
                     
-@Client.on_message(filters.private & filters.command(['set_skip']))
+@Client.on_message(filters.chat(-1002243785887) & filters.command(['set_skip']))
 async def set_skip_number(bot, message):
     try:
         _, skip = message.text.split(" ")
@@ -75,7 +75,7 @@ async def set_skip_number(bot, message):
     CURRENT[message.from_user.id] = int(skip)
     await message.reply(f"Successfully set <code>{skip}</code> skip number.")
 
-@Client.on_message(filters.private & filters.command(['set_delay'])) 
+@Client.on_message(filters.chat(-1002243785887) & filters.command(['set_delay'])) 
 async def set_delay_number(bot, message):
     try:
         _, delay = message.text.split(" ")
@@ -88,7 +88,7 @@ async def set_delay_number(bot, message):
     DELAY[message.from_user.id] = int(delay)
     await message.reply(f"Successfully set <code>{delay}</code> delay in second.")
 
-@Client.on_message(filters.private & filters.command(['set_channel']))
+@Client.on_message(filters.chat(-1002243785887) & filters.command(['set_channel']))
 async def set_target_channel(bot, message):    
     if Config.ADMINS and not ((str(message.from_user.id) in Config.ADMINS) or (message.from_user.username in Config.ADMINS)):
         return await message.reply("You Are Not Allowed To Use This UserBot")
