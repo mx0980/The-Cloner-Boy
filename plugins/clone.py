@@ -193,6 +193,8 @@ async def forward_files(lst_msg_id, chat, msg, bot, user_id):
                             parse_mode=enums.ParseMode.MARKDOWN
                         )
             except Exception as e:
+                if "The media caption" in str(e):
+                    continue
                 logger.exception(e)
                 return await msg.reply(f"Forward Canceled!\n\nError - {e}")               
             forwarded += 1
