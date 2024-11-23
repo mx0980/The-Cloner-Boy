@@ -113,6 +113,10 @@ async def forward_files(lst_msg_id, chat, msg, bot, user_id):
             if message.empty:
                 deleted += 1
                 continue
+            if not message.media:
+                continue
+            if message.media not in [MessageMediaType.DOCUMENT, MessageMediaType.VIDEO]:
+                continue
             try:
                 if message.media:
                     if message.media not in [
