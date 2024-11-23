@@ -79,7 +79,7 @@ async def forward_files(lst_msg_id, chat, msg, bot, user_id):
     deleted = 0
     unsupported = 0
     fetched = 0
-    to_channel = -1001569283029
+    to_channel = -1001976541395
     try:
         skip_idd = await bot.get_messages(-1001631481154, 9)
     except Exception as e:
