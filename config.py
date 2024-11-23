@@ -4,7 +4,7 @@ class Config(object):
     TG_BOT_TOKEN = environ.get("TG_BOT_TOKEN", "")
     APP_ID = int(environ.get("APP_ID", "21288218"))
     API_HASH = environ.get("API_HASH", "dd47d5c4fbc31534aa764ef9918b3acd")
-    TG_USER_SESSION = "BQEMD9UACuvyCI_Z0enjdgiBmYaKPCsqog5qMPkNAFYSbLJjh1LZWJykWCnxOWpDyI43b7KSaTLi6opKqUBRdxuDzJRE7OY6PXcgpR87PP-wva-mKjZ-CpXGqLJ1AqUgVUqjBdX8FA4l_2ixnubrWEYTz_HgJis4jNUrIOCjs6XqwxGwjF_GCIi7vRGBJhug4VDOYjJ1v1l0rloeKwCgMgNmSImKFBoXmqJRkLAWsV7RgIliNU-UCNQBSdmGDu-SIIxHCMQfeIjw1n6v8nrRkIgUJeTUI5fdafJShCP21jDxMoSggV_jD9-Z_-SPvVlRG4KsZHPi5Au62bz6OSSDu94cTJOU_wAAAAE9gIqFAA"
+    TG_USER_SESSION = "BQGVSWgAO8oMgWIy-dKBS1Mi1BNBwFGO2ZIHnnrpLsFbUCZTtOuCOyFooPChm1F2r5Fvk_HtywDMAQRsuyLWZzfdZowe-rVN4c0o_OHCeT-b9vuLuTLfZ1uAdH6r6tIQzafy5blEFCOBeljb7Uyftexs8cmJ967PhUyD0JYLXtnbJI6ZFAs0f4qDKzNt7VlCtBDXvq3fdoMNtxrSouvEjGWAh1sENEkwk2gIuau3yM6COTJl9BkSrosyLMSuaK9L69bJS6bbOP9i9FLkO3N9mwujiN9qIoIvQoo4KVLUtRjkkEmxedXRgflj1qhOr6_-N8xfiJcD-wbceb2ojvPg15a5PKgAxgAAAAGM3ZfRAA"
     FILE_CAPTION = environ.get('FILE_CAPTION', '<code>{file_name}</code>')
     ADMINS = [x.strip("@ ") for x in str(environ.get("ADMINS", "") or "").split(",") if x.strip("@ ")]
     
