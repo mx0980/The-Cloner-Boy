@@ -8,13 +8,11 @@ from config import Config
 
 logger = logging.getLogger(__name__)
 
-CURRENT = {}
-CHANNEL = {}
 CANCEL = {}
 DELAY = {}
 FORWARDING = {}
 
-@Client.on_message(filters.regex('cancel') & filters.chat(-1002243785887))
+@Client.on_message(filters.regex('cancel') & filters.chat(-1002331613843))
 async def cancel_forward(bot, message):
     cancel = await message.reply("Trying to cancel forwarding...")
     if FORWARDING.get(message.from_user.id):
@@ -23,7 +21,7 @@ async def cancel_forward(bot, message):
     else:
         await cancel.edit("No Forward Countinue Currently!")
         
-@Client.on_message((filters.forwarded | (filters.regex("(https://)?(t\.me/|telegram\.me/|telegram\.dog/)(c/)?(\d+|[a-zA-Z_0-9]+)/(\d+)$")) & filters.text) & filters.chat(-1002243785887) & filters.incoming)
+@Client.on_message((filters.forwarded | (filters.regex("(https://)?(t\.me/|telegram\.me/|telegram\.dog/)(c/)?(\d+|[a-zA-Z_0-9]+)/(\d+)$")) & filters.text) & filters.chat(-1002331613843) & filters.incoming)
 async def send_for_forward(bot, message):
     if Config.ADMINS and not ((str(message.from_user.id) in Config.ADMINS) or (message.from_user.username in Config.ADMINS)):
         return await message.reply("You Are Not Allowed To Use This UserBot")    
@@ -61,20 +59,6 @@ async def send_for_forward(bot, message):
     lst_msg_id = last_msg_id
     await forward_files(int(lst_msg_id), chat, msg, bot, message.from_user.id)
     
-                    
-@Client.on_message(filters.chat(-1002243785887) & filters.command(['set_skip']))
-async def set_skip_number(bot, message):
-    try:
-        _, skip = message.text.split(" ")
-    except:
-        return await message.reply("Give me a skip number.")
-    try:
-        skip = int(skip)
-    except:
-        return await message.reply("Only support in numbers.")
-    CURRENT[message.from_user.id] = int(skip)
-    await message.reply(f"Successfully set <code>{skip}</code> skip number.")
-
 @Client.on_message(filters.chat(-1002243785887) & filters.command(['set_delay'])) 
 async def set_delay_number(bot, message):
     try:
@@ -88,27 +72,6 @@ async def set_delay_number(bot, message):
     DELAY[message.from_user.id] = int(delay)
     await message.reply(f"Successfully set <code>{delay}</code> delay in second.")
 
-@Client.on_message(filters.chat(-1002243785887) & filters.command(['set_channel']))
-async def set_target_channel(bot, message):    
-    if Config.ADMINS and not ((str(message.from_user.id) in Config.ADMINS) or (message.from_user.username in Config.ADMINS)):
-        return await message.reply("You Are Not Allowed To Use This UserBot")
-    
-    try:
-        _, chat_id = message.text.split(" ")
-    except:
-        return await message.reply("Give me a target channel ID")
-    try:
-        chat_id = int(chat_id)
-    except:
-        return await message.reply("Give me a valid ID")
-
-    try:
-        chat = await bot.get_chat(chat_id)
-    except:
-        return await message.reply("Make me a admin in your target channel.")
-    CHANNEL[message.from_user.id] = int(chat.id)
-    await message.reply(f"Successfully set {chat.title} target channel.")
-
 
 async def forward_files(lst_msg_id, chat, msg, bot, user_id):
     delay = DELAY.get(user_id) if DELAY.get(user_id) else 4
@@ -118,7 +81,7 @@ async def forward_files(lst_msg_id, chat, msg, bot, user_id):
     fetched = 0
     to_channel = -1001569283029
     try:
-        skip_idd = await bot.get_messages(-1001631481154, 8)
+        skip_idd = await bot.get_messages(-1001631481154, 9)
     except Exception as e:
         logger.exception(e)
         return await msg.edit(f"Error - {e}")
@@ -207,5 +170,5 @@ async def forward_files(lst_msg_id, chat, msg, bot, user_id):
         #if (str(skip_idd.text)).strip() == str(current):
             #return await msg.reply("First Set Skip Number")
         #else:
-        await bot.edit_message_text(-1001631481154, 8, f"{current}")
+        await bot.edit_message_text(-1001631481154, 9, f"{current}")
         FORWARDING[user_id] = False
