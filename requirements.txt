@@ -1,6 +1,7 @@
 kurigram==2.2.1
 tgcrypto
-https://github.com/the-lx0980/pyromod/archive/refs/heads/master.zip
+pyromod
+#https://github.com/the-lx0980/pyromod/archive/refs/heads/master.zip
 Flask==3.0.3
 gunicorn==22.0.0
 aiohttp==3.9.5
