@@ -1,20 +1,19 @@
+import asyncio
 import logging
 import logging.config
 
 # Get logging configurations
-logging.config.fileConfig('logging.conf')
+logging.config.fileConfig("logging.conf")
 logging.getLogger().setLevel(logging.INFO)
 logging.getLogger("pyrogram").setLevel(logging.ERROR)
+logging.getLogger("imdbpy").setLevel(logging.ERROR)
 
 from pyromod import listen
+from pyrogram import Client, __version__
 from pyrogram.raw.all import layer
-from pyrogram import Client
-from pyrogram.enums import ParseMode
 from typing import Union, Optional, AsyncGenerator
-from pyrogram import types
-
+from pyrogram import types, idle
 from config import Config
-
 
 class Bot(Client):
     def __init__(self):
