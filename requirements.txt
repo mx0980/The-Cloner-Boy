@@ -1,4 +1,4 @@
-https://github.com/protullen/pyrogram/archive/refs/heads/dev.zip
+https://github.com/ishwar0980/pyrogram/archive/refs/heads/dev.zip
 tgcrypto==1.2.5
 https://github.com/the-lx0980/pyromod/archive/refs/heads/master.zip
 Flask==3.0.3
