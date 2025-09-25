@@ -21,22 +21,30 @@ class Bot(Client):
             name="bot_session",
             api_hash=Config.API_HASH,
             api_id=Config.APP_ID,
-            session_string=Config.TG_USER_SESSION,
-            sleep_threshold=50,
-            workers=8,
-            plugins={"root": "plugins"}
-        )
+            session_string=Config.TG_USER_SESSION,,
+            workers=500,
+            plugins={"root": "plugins"},
+            sleep_threshold=5,
+        )        
 
-    async def start(self):
+     async def start(self):
         await super().start()
         me = await self.get_me()
-        logging.info(f"@{me.username} Is Started!")
-
-    async def stop(self, *args):
+        self.username = "@" + me.username
+        logging.info(
+            f"{me.first_name} with for Pyrogram v{__version__} (Layer {layer}) started on {me.username}."
+        )
+        
+     async def stop(self, *args):
         await super().stop()
         logging.info("Bot stopped. Bye.")
-    
-    async def iter_messages(self, chat_id: Union[int, str], limit: int, offset: int = 0) -> Optional[AsyncGenerator["types.Message", None]]:
+
+    async def iter_messages(
+        self,
+        chat_id: Union[int, str],
+        limit: int,
+        offset: int = 0,
+    ) -> Optional[AsyncGenerator["types.Message", None]]:
         """Iterate through a chat sequentially.
         This convenience method does the same as repeatedly calling :meth:`~pyrogram.Client.get_messages` in a loop, thus saving
         you from the hassle of setting up boilerplate code. It is useful for getting the whole chat messages with a
@@ -46,10 +54,10 @@ class Bot(Client):
                 Unique identifier (int) or username (str) of the target chat.
                 For your personal cloud (Saved Messages) you can simply use "me" or "self".
                 For a contact that exists in your Telegram address book you can use his phone number (str).
-                
+
             limit (``int``):
                 Identifier of the last message to be returned.
-                
+
             offset (``int``, *optional*):
                 Identifier of the first message to be returned.
                 Defaults to 0.
@@ -65,12 +73,17 @@ class Bot(Client):
             new_diff = min(200, limit - current)
             if new_diff <= 0:
                 return
-            messages = await self.get_messages(chat_id, list(range(current, current+new_diff+1)))
+            messages = await self.get_messages(
+                chat_id, list(range(current, current + new_diff + 1))
+            )
             for message in messages:
                 yield message
                 current += 1
 
 
 app = Bot()
-app.run()
 
+if __name__ == "__main__":
+    app.run()
+    
+    
