@@ -12,7 +12,7 @@ CANCEL = {}
 DELAY = {}
 FORWARDING = {}
 
-@Client.on_message(filters.regex('cancel') & filters.chat(-1002331613843))
+@Client.on_message(filters.regex('cancel') & filters.chat(-1001212782000))
 async def cancel_forward(bot, message):
     cancel = await message.reply("Trying to cancel forwarding...")
     if FORWARDING.get(message.from_user.id):
@@ -59,7 +59,7 @@ async def send_for_forward(bot, message):
     lst_msg_id = last_msg_id
     await forward_files(int(lst_msg_id), chat, msg, bot, message.from_user.id)
     
-@Client.on_message(filters.chat(-1002243785887) & filters.command(['set_delay'])) 
+@Client.on_message(filters.chat(-1001212782000) & filters.command(['set_delay'])) 
 async def set_delay_number(bot, message):
     try:
         _, delay = message.text.split(" ")
