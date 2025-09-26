@@ -15,7 +15,7 @@ from typing import Union, Optional, AsyncGenerator
 from pyrogram import types, idle
 from config import Config
 
-class Bot(Client):
+class main(Client):
     def __init__(self):
         super().__init__(
             name="bot_session",
@@ -81,7 +81,7 @@ class Bot(Client):
                 current += 1
 
 
-app = Bot()
-app.run()
+if __name__ == "__main__":
+    main()
     
     
