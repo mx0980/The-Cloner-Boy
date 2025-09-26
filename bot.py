@@ -8,7 +8,7 @@ logging.getLogger().setLevel(logging.INFO)
 logging.getLogger("pyrogram").setLevel(logging.ERROR)
 logging.getLogger("imdbpy").setLevel(logging.ERROR)
 
-from pyromod import listen
+#from pyromod import listen
 from pyrogram import Client, __version__
 from pyrogram.raw.all import layer
 from typing import Union, Optional, AsyncGenerator
