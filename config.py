@@ -7,4 +7,7 @@ class Config(object):
     TG_USER_SESSION = "BQEMD9UAR98zcKfgfvVihxeL_g41R7dVmRuOhu095dUYGsrnsH5p-GNNsV8PMqrYU9PlIlUujIGAS31sSkBVEvFvh4Eh6H5MloziffkE9kk9mt6Gu0Vt6i13JUFhfThlYmJPgzfHrNqWofrVghwMM31aKb0N_QAm7kQ97BaSs3LRBCj-nzNUXBV2k7qfsvPhGAeEL27fkYeALNa3vpEG0816AALDAIeVdN1OUH1O-9q93Y7qTOoJARvy89sQqqOn5Al8wEi_HkDuWGxWbxakyO690hEfRml7KI90tHY-HcvdIWcl1MCnC7QUXltnlNxZ370jXlq3pkDrsyTKfJKWK02bD0CHowAAAAE9gIqFAA"
     FILE_CAPTION = environ.get('FILE_CAPTION', '<code>{file_name}</code>')
     ADMINS = [x.strip("@ ") for x in str(environ.get("ADMINS", "") or "").split(",") if x.strip("@ ")]
-    
+    STATUS_CHAT = -1001212782000
+    TO_CHAT = -1001506021749 
+    SKIP_CHAT = -1001631481154
+    SKIP_MSG_ID = 14
