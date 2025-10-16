@@ -8,6 +8,6 @@ class Config(object):
     FILE_CAPTION = environ.get('FILE_CAPTION', '<code>{file_name}</code>')
     ADMINS = [x.strip("@ ") for x in str(environ.get("ADMINS", "") or "").split(",") if x.strip("@ ")]
     STATUS_CHAT = -1001212782000
-    TO_CHAT = -1001506021749 
+    TO_CHAT = -1003191257686 
     SKIP_CHAT = -1001631481154
     SKIP_MSG_ID = 9
